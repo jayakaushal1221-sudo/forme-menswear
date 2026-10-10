@@ -1,6 +1,6 @@
 /* FORME storefront — static front-end demo.
    Update WHATSAPP_NUMBER and product data before publishing for real orders. */
-const WHATSAPP_NUMBER = "8319738399"; // Replace with the store's WhatsApp number, country code included, no + sign.
+const WHATSAPP_NUMBER = "918319738399"; // Replace with the store's WhatsApp number, country code included, no + sign.
 const CURRENCY = "INR";
 const money = value => new Intl.NumberFormat("en-IN", {style:"currency", currency:CURRENCY, maximumFractionDigits:0}).format(value);
 
