@@ -3,144 +3,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f1eb">
-  <meta name="description" content="Discover considered menswear, everyday essentials and modern classics. Visit us in Jabalpur, Madhya Pradesh, or order directly on WhatsApp.">
-  <meta property="og:title" content="FORME — Modern Menswear, Jabalpur">
-  <meta property="og:description" content="A considered wardrobe for every day. Explore modern menswear in Jabalpur.">
-  <meta property="og:type" content="website">
-  <title>FORME — Modern Menswear | Jabalpur</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#f5f0e7">
+  <meta name="description" content="FORME Menswear — everyday fashion at honest prices. Browse shirts, T-shirts, jeans, lowers, hoodies, uppers, track suits, jackets, caps and mufflers.">
+  <title>FORME Menswear | Everyday Style, Right Price</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="announcement">
-    <span>THE EVERYDAY, ELEVATED.</span>
-    <span class="announcement-right">CURATED MENSWEAR · JABALPUR, MP</span>
-  </div>
-
-  <header class="site-header" id="top">
-    <button class="icon-button menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><span class="menu-lines"></span></button>
-    <a class="brand" href="#top" aria-label="Forme home">
-      <span class="brand-name">FORME<span class="brand-period">.</span></span>
-      <span class="brand-caption">MODERN MENSWEAR</span>
-    </a>
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="#shop">Shop</a>
-      <a href="#collections">Collections</a>
-      <a href="#story">Our approach</a>
-      <a href="#visit">Visit us</a>
+  <div class="announcement">Everyday style. Right price. <span>Prices shown are samples—please confirm with our store.</span></div>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="FORME home"><span>FORME</span><small>MODERN MENSWEAR</small></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <nav class="main-nav" id="mainNav">
+      <a href="#home">Home</a><a href="#categories">Categories</a><a href="#products">Shop</a><a href="#visit">Visit Us</a>
     </nav>
-    <div class="header-actions">
-      <button class="icon-button search-toggle" id="searchToggle" aria-label="Search products"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></button>
-      <button class="bag-button" id="cartOpen" aria-label="Open shopping bag"><span class="bag-label">BAG</span><span class="bag-count" id="bagCount">0</span></button>
-    </div>
+    <button class="cart-button" id="cartButton" type="button">Bag <span id="cartCount">0</span></button>
   </header>
 
-  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
-    <a href="#shop">Shop all <span>↗</span></a>
-    <a href="#collections">Collections <span>↗</span></a>
-    <a href="#story">Our approach <span>↗</span></a>
-    <a href="#visit">Visit us <span>↗</span></a>
-  </nav>
-
-  <section class="search-panel" id="searchPanel" aria-label="Search products" hidden>
-    <div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg><input id="searchInput" type="search" placeholder="Search shirts, polos, trousers…" autocomplete="off"><button id="searchClose" aria-label="Close search">✕</button></div>
-    <p class="search-hint">Try “linen”, “polo” or “everyday shirt”.</p>
-  </section>
-
   <main>
-    <section class="hero section-shell">
+    <section class="hero" id="home">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="eyebrow-line"></span> THE NEW EVERYDAY</p>
-        <h1>Good style.<br><em>No fuss.</em></h1>
-        <p class="hero-description">Thoughtful essentials and modern classics for wherever your day takes you.</p>
-        <div class="hero-actions"><a class="button button-dark" href="#shop">Shop the collection <span>↗</span></a><a class="text-link" href="#story">Our point of view <span>→</span></a></div>
-        <div class="hero-footnote"><span class="footnote-number">01 / 03</span><span class="footnote-rule"></span><span>MADE FOR REAL LIFE</span></div>
+        <p class="eyebrow">EVERYDAY STYLE FOR MODERN MEN</p>
+        <h1>Your style.<br>Your <em>story.</em></h1>
+        <p class="hero-description">Shirts, tees, denim and everyday essentials — all at approachable prices.</p>
+        <a class="button button-primary" href="#products">Explore collection <span>→</span></a>
+        <div class="trust-row"><span>✓ Everyday essentials</span><span>₹ Sample prices</span><span>⌖ Jabalpur</span></div>
       </div>
-      <div class="hero-visual">
-        <img class="hero-image" src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1500&q=88" alt="A man wearing a modern neutral-toned outfit" fetchpriority="high">
-        <div class="image-stamp"><span>THE</span><strong>FORME<br>EDIT</strong><span>VOL. 01 — 2026</span></div>
-        <div class="hero-image-caption"><span>01</span><span>THE ART OF GETTING DRESSED</span></div>
-      </div>
-      <div class="hero-side-note">LESS, BUT BETTER — EST. FOR EVERY DAY</div>
+      <div class="hero-image" role="img" aria-label="Men's casual fashion editorial"></div>
     </section>
 
-    <section class="ticker" aria-label="Brand values"><div class="ticker-track"><span>WEAR IT YOUR WAY</span><b>✳</b><span>BUILT AROUND YOU</span><b>✳</b><span>EVERYDAY ICONS</span><b>✳</b><span>WEAR IT YOUR WAY</span><b>✳</b><span>BUILT AROUND YOU</span><b>✳</b></div></section>
-
-    <section class="collections section-shell" id="collections">
-      <div class="section-heading">
-        <div><p class="eyebrow">FIND YOUR FORM</p><h2>Dress for <em>your kind of day.</em></h2></div>
-        <a class="text-link desktop-only" href="#shop">Explore all pieces <span>→</span></a>
-      </div>
-      <div class="collection-grid">
-        <a href="#shop" class="collection-card" data-category-link="shirts">
-          <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=950&q=85" alt="Minimal shirt styling" loading="lazy">
-          <span class="collection-number">01 / THE FOUNDATION</span><span class="collection-label">Everyday shirts <span>↗</span></span>
-        </a>
-        <a href="#shop" class="collection-card collection-card-tall" data-category-link="polos">
-          <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=950&q=85" alt="Casual menswear in a muted palette" loading="lazy">
-          <span class="collection-number">02 / OFF-DUTY</span><span class="collection-label">Polos & tees <span>↗</span></span>
-        </a>
-        <a href="#shop" class="collection-card" data-category-link="trousers">
-          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=950&q=85" alt="Contemporary everyday outfit" loading="lazy">
-          <span class="collection-number">03 / THE FINISH</span><span class="collection-label">Trousers & more <span>↗</span></span>
-        </a>
-      </div>
+    <section class="section categories-section" id="categories">
+      <div class="section-heading"><div><p class="eyebrow">FIND YOUR FIT</p><h2>Shop by category</h2></div><p>Everyday picks for every plan.</p></div>
+      <div class="category-grid" id="categoryGrid"></div>
     </section>
 
-    <section class="shop-section section-shell" id="shop">
-      <div class="section-heading shop-heading">
-        <div><p class="eyebrow">A GOOD PLACE TO START</p><h2>The considered <em>collection.</em></h2></div>
-        <p class="section-intro">Pieces that work harder, pair easily, and make getting dressed feel simple.</p>
-      </div>
-      <div class="shop-toolbar">
-        <div class="filter-tabs" role="group" aria-label="Filter products">
-          <button class="filter-tab active" data-filter="all">All pieces <span class="filter-count" id="count-all"></span></button>
-          <button class="filter-tab" data-filter="shirts">Shirts</button>
-          <button class="filter-tab" data-filter="polos">Polos & tees</button>
-          <button class="filter-tab" data-filter="trousers">Trousers</button>
-          <button class="filter-tab" data-filter="outerwear">Layers</button>
-        </div>
-        <label class="sort-label">SORT BY <select id="sortSelect" aria-label="Sort products"><option value="featured">Featured</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="name">Name: A–Z</option></select></label>
-      </div>
-      <div class="product-grid" id="productGrid" aria-live="polite"></div>
-      <p class="empty-state" id="emptyState" hidden>No pieces match your search. Try another term.</p>
-      <div class="shop-bottom"><span>GOOD CLOTHES. NO COMPLICATED RULES.</span><a href="#visit" class="text-link">Need help finding your fit? <span>→</span></a></div>
+    <section class="section products-section" id="products">
+      <div class="section-heading"><div><p class="eyebrow">THE EVERYDAY EDIT</p><h2 id="productsHeading">Popular picks</h2></div><p class="sample-note">Sample prices only · Confirm availability with store</p></div>
+      <div class="filters" id="filters" aria-label="Filter products"></div>
+      <div class="product-grid" id="productGrid"></div>
     </section>
 
-    <section class="editorial section-shell" id="story">
-      <div class="editorial-image"><img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1300&q=88" alt="Timeless menswear textures and styling" loading="lazy"><span class="editorial-image-tag">A WARDROBE, NOT A TREND</span></div>
-      <div class="editorial-copy"><p class="eyebrow">OUR APPROACH</p><h2>Less chasing.<br><em>More wearing.</em></h2><p>We believe your best clothes are the ones you reach for again and again. A clear palette, versatile cuts, and pieces that feel like you — that's the idea behind FORME.</p><p class="editorial-small">CONSIDERED STYLE FOR THE EVERYDAY MAN.</p><a href="#shop" class="button button-light">Find your essentials <span>↗</span></a><span class="editorial-index">A NOTE ON STYLE / 001</span></div>
+    <section class="promise-strip">
+      <div><span class="promise-icon">₹</span><p><strong>Honest pricing</strong><small>Confirm final price before ordering</small></p></div>
+      <div><span class="promise-icon">☏</span><p><strong>Easy WhatsApp enquiry</strong><small>Ask about sizes and availability</small></p></div>
+      <div><span class="promise-icon">⌖</span><p><strong>Local store</strong><small>Jabalpur, Madhya Pradesh</small></p></div>
     </section>
 
-    <section class="local-section section-shell" id="visit">
-      <div class="local-topline"><span class="eyebrow">GOOD TO MEET YOU</span><span class="local-coordinate">JABALPUR · MADHYA PRADESH</span></div>
-      <div class="local-content"><div><h2>Your next favourite<br>fit is <em>closer than you think.</em></h2><p>Shopping locally? Talk to us about sizes, availability, styling, or visiting the store in Jabalpur.</p><a class="button button-dark" id="visitWhatsapp" href="#" target="_blank" rel="noopener">Chat with our team <span>↗</span></a></div><div class="local-card"><div class="local-card-icon">F.</div><div><span class="local-card-overline">YOUR LOCAL STYLE DESTINATION</span><h3>FORME, Jabalpur</h3><p>Jabalpur, Madhya Pradesh, India</p><a href="https://www.google.com/maps/search/?api=1&query=menswear+store+Jabalpur+Madhya+Pradesh" target="_blank" rel="noopener">Find menswear in Jabalpur <span>↗</span></a></div></div></div>
-      <div class="local-bottom"><span>PERSONAL SERVICE. EVERYDAY STYLE.</span><span>MADE TO BE WORN, AGAIN.</span></div>
+    <section class="visit-section" id="visit">
+      <div><p class="eyebrow">COME SAY HELLO</p><h2>Good style starts here.</h2><p>Looking for a size, colour or current price? Message us before visiting so we can help you check availability.</p></div>
+      <div class="visit-actions"><a class="button button-primary" id="visitWhatsapp" href="#" target="_blank" rel="noopener">Enquire on WhatsApp ↗</a><a class="text-link" href="https://maps.app.goo.gl/6cvLgrVqeu6LFh676?g_st=ac" target="_blank" rel="noopener">Get directions to our store →</a></div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="footer-main"><div class="footer-brand"><a class="brand brand-footer" href="#top"><span class="brand-name">FORME<span class="brand-period">.</span></span><span class="brand-caption">MODERN MENSWEAR</span></a><p>Good style should feel easy.<br>Made for every version of your day.</p></div><div class="footer-links"><div><span class="footer-heading">EXPLORE</span><a href="#shop">Shop all</a><a href="#collections">Collections</a><a href="#story">Our approach</a></div><div><span class="footer-heading">GET IN TOUCH</span><a id="footerWhatsapp" href="#" target="_blank" rel="noopener">WhatsApp us ↗</a><a href="#visit">Jabalpur, MP</a><a href="https://www.google.com/maps/search/?api=1&query=menswear+store+Jabalpur+Madhya+Pradesh" target="_blank" rel="noopener">Find us on Maps ↗</a></div></div></div>
-    <div class="footer-bottom"><span>© <span id="year"></span> FORME MENSWEAR. ALL RIGHTS RESERVED.</span><span>AN INDEPENDENT STYLE DESTINATION · JABALPUR, INDIA</span><a href="#top">BACK TO TOP ↑</a></div>
+    <a class="brand brand-footer" href="#home"><span>FORME</span><small>MODERN MENSWEAR</small></a>
+    <p>Your everyday style destination.</p>
+    <a id="footerWhatsapp" href="#" target="_blank" rel="noopener">WhatsApp us</a>
+    <small>© <span id="year"></span> FORME Menswear. Product images are illustrative. Sample prices are not confirmed store prices.</small>
   </footer>
 
-  <div class="overlay" id="overlay" hidden></div>
-  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag" aria-hidden="true">
-    <div class="drawer-header"><div><p class="eyebrow">YOUR SELECTION</p><h2>Your bag <span id="drawerCount">(0)</span></h2></div><button class="icon-button close-drawer" id="cartClose" aria-label="Close shopping bag">✕</button></div>
-    <div class="cart-items" id="cartItems"></div>
-    <div class="cart-empty" id="cartEmpty"><span class="cart-empty-icon">○</span><h3>A little room for something good.</h3><p>Your bag is waiting for its first piece.</p><button class="button button-dark" id="continueShopping">Explore the collection <span>→</span></button></div>
-    <div class="cart-summary" id="cartSummary" hidden><div class="summary-line"><span>Subtotal</span><strong id="cartSubtotal">₹0</strong></div><p>Delivery or pickup details can be confirmed with our team on WhatsApp.</p><button class="button button-dark checkout-button" id="checkoutButton">Order on WhatsApp <span>↗</span></button><button class="continue-link" id="continueShopping2">Continue shopping</button></div>
-  </aside>
-
-  <div class="product-modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
-    <button class="modal-close" id="modalClose" aria-label="Close product details">✕</button>
-    <div class="modal-image-wrap"><img id="modalImage" src="" alt=""></div>
-    <div class="modal-details"><p class="eyebrow" id="modalCategory">THE FORME EDIT</p><h2 id="modalTitle">Product name</h2><p class="modal-price" id="modalPrice">₹0</p><p class="modal-description" id="modalDescription"></p><div class="size-heading"><span>SELECT SIZE</span><span class="size-guide">Need help? <a href="#visit" id="sizeHelp">Ask us</a></span></div><div class="size-options" id="sizeOptions" role="group" aria-label="Select size"></div><p class="size-error" id="sizeError" hidden>Please select a size to continue.</p><div class="modal-quantity"><span>QUANTITY</span><div class="quantity-control"><button id="qtyMinus" aria-label="Decrease quantity">−</button><span id="modalQty">1</span><button id="qtyPlus" aria-label="Increase quantity">+</button></div></div><button class="button button-dark modal-add" id="modalAdd">Add to bag <span>↗</span></button><p class="modal-note">Questions about fit or availability? Our Jabalpur team can help.</p></div>
+  <div class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <section class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="drawer-heading"><h2 id="cartTitle">Your bag</h2><button id="closeCart" aria-label="Close bag">×</button></div>
+      <p class="sample-note">Items and prices are for enquiry only. Final price and availability must be confirmed by the store.</p>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="drawer-footer"><div class="cart-total"><span>Sample subtotal</span><strong id="cartTotal">₹0</strong></div><button class="button button-primary full-width" id="checkoutButton">Enquire on WhatsApp</button><small>Sending an enquiry does not confirm an order.</small></div>
+    </section>
   </div>
-
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>
 </body>

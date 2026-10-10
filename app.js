@@ -1,68 +1,77 @@
-/* FORME storefront — static front-end demo.
-   Update WHATSAPP_NUMBER and product data before publishing for real orders. */
-const WHATSAPP_NUMBER = "918319738399"; // Replace with the store's WhatsApp number, country code included, no + sign.
-const CURRENCY = "INR";
-const money = value => new Intl.NumberFormat("en-IN", {style:"currency", currency:CURRENCY, maximumFractionDigits:0}).format(value);
-
-const products = [
-  {id:1,name:"The Everyday Oxford",category:"shirts",price:499,colour:"Soft white · 100% cotton look",badge:"BESTSELLER",sizes:["S","M","L","XL","XXL"],image:"https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85",description:"A dependable button-down with a clean silhouette. Easy to dress up, effortless to wear on repeat."},
-  {id:2,name:"Linen Blend Shirt",category:"shirts",price:799,colour:"Natural sand · Relaxed fit",badge:"NEW ARRIVAL",sizes:["S","M","L","XL"],image:"https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=85",description:"A relaxed warm-weather staple with an airy look and a laid-back finish. Made for slow mornings and long evenings."},
-  {id:3,name:"The Daily Polo",category:"polos",price:999,colour:"Olive · Regular fit",badge:"EVERYDAY ICON",sizes:["S","M","L","XL","XXL"],image:"https://images.unsplash.com/photo-1625910513413-5fc45e7d2b9b?auto=format&fit=crop&w=900&q=85",description:"The easy middle ground between casual and considered. Pair it with denim, chinos, or whatever is already in rotation."},
-  {id:4,name:"Relaxed Chino",category:"trousers",price:699,colour:"Stone · Straight leg",badge:"CORE PIECE",sizes:["28","30","32","34","36"],image:"https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=900&q=85",description:"A clean everyday trouser with room to move and a versatile shape that works from weekday to weekend."},
-  {id:5,name:"Textured Crew Tee",category:"polos",price:699,colour:"Off-white · Easy fit",badge:"UNDER ₹1,000",sizes:["S","M","L","XL","XXL"],image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85",description:"The starting point of a good outfit. A versatile crew-neck tee that fits into just about every plan."},
-  {id:6,name:"The Overshirt",category:"outerwear",price:199,colour:"Moss · Layering fit",badge:"NEW ARRIVAL",sizes:["S","M","L","XL"],image:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=900&q=85",description:"An easy extra layer for cooler evenings. Wear it open over a tee or buttoned up when the occasion calls for it."},
-  {id:7,name:"Weekend Shirt",category:"shirts",price:299,colour:"Blue stripe · Casual fit",badge:"JUST RIGHT",sizes:["S","M","L","XL","XXL"],image:"https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?auto=format&fit=crop&w=900&q=85",description:"A little texture, a lot of versatility. Built for relaxed plans, spontaneous outings, and everyday wear."},
-  {id:8,name:"Tailored Everyday Trouser",category:"trousers",price:899,colour:"Charcoal · Tapered fit",badge:"THE FINISH",sizes:["28","30","32","34","36"],image:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85",description:"A more polished profile without losing comfort. The reliable finishing touch for a sharp, uncomplicated outfit."}
+// FORME Menswear — illustrative catalogue. Replace sample products/prices with verified store details.
+const WHATSAPP_NUMBER = "918319738399"; // Country code included; digits only.
+const SAMPLE_LABEL = "Sample price — confirm with store";
+const categories = [
+  {name:"Jeans", image:"https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=700&q=80"},
+  {name:"Shirts", image:"https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=700&q=80"},
+  {name:"T-Shirts", image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80"},
+  {name:"Lowers", image:"https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=700&q=80"},
+  {name:"Hoodies", image:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=80"},
+  {name:"Uppers", image:"https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80"},
+  {name:"Track Suits", image:"https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=700&q=80"},
+  {name:"Jackets", image:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=700&q=80"},
+  {name:"Caps", image:"https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=700&q=80"},
+  {name:"Mufflers", image:"https://images.unsplash.com/photo-1609803384069-19f3e5a70e75?auto=format&fit=crop&w=700&q=80"}
 ];
-
-const state = {filter:"all",query:"",sort:"featured",cart:[],wishlist:new Set(),selectedProduct:null,selectedSize:"",quantity:1};
-const $ = selector => document.querySelector(selector);
-const $$ = selector => [...document.querySelectorAll(selector)];
-const productGrid = $("#productGrid");
-const safeText = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
-
-function categoryName(category){return ({shirts:"Shirts",polos:"Polos & tees",trousers:"Trousers",outerwear:"Layers"})[category] || "Menswear";}
-function visibleProducts(){
-  let list = products.filter(p => (state.filter === "all" || p.category === state.filter) && `${p.name} ${p.category} ${p.colour} ${p.description}`.toLowerCase().includes(state.query.toLowerCase()));
-  if(state.sort === "price-asc") list.sort((a,b)=>a.price-b.price);
-  if(state.sort === "price-desc") list.sort((a,b)=>b.price-a.price);
-  if(state.sort === "name") list.sort((a,b)=>a.name.localeCompare(b.name));
-  return list;
+const products = [
+  {id:1,name:"Everyday Denim Jeans",category:"Jeans",price:799,image:categories[0].image},
+  {id:2,name:"Casual Button-Down Shirt",category:"Shirts",price:599,image:categories[1].image},
+  {id:3,name:"Classic Cotton T-Shirt",category:"T-Shirts",price:399,image:categories[2].image},
+  {id:4,name:"Comfort Fit Lower",category:"Lowers",price:499,image:categories[3].image},
+  {id:5,name:"Everyday Hoodie",category:"Hoodies",price:799,image:categories[4].image},
+  {id:6,name:"Casual Upper",category:"Uppers",price:699,image:categories[5].image},
+  {id:7,name:"Track Suit Set",category:"Track Suits",price:999,image:categories[6].image},
+  {id:8,name:"Casual Jacket",category:"Jackets",price:1199,image:categories[7].image},
+  {id:9,name:"Everyday Cap",category:"Caps",price:199,image:categories[8].image},
+  {id:10,name:"Winter Muffler",category:"Mufflers",price:249,image:categories[9].image}
+];
+let activeCategory = "All";
+let cart = [];
+const $ = (s) => document.querySelector(s);
+const money = (n) => "₹" + Number(n).toLocaleString("en-IN");
+function waUrl(message){ return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`; }
+function openWhatsApp(message){ window.open(waUrl(message), "_blank", "noopener,noreferrer"); }
+function showToast(message){ const t=$("#toast");t.textContent=message;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200); }
+function renderCategories(){
+  $("#categoryGrid").innerHTML = categories.map(c=>`<a class="category-card" href="#products" data-category="${c.name}"><img loading="lazy" src="${c.image}" alt="${c.name} clothing" onerror="this.style.opacity='.25'"><span>${c.name} ↗</span></a>`).join("");
+  $("#categoryGrid").querySelectorAll("[data-category]").forEach(el=>el.addEventListener("click",()=>setCategory(el.dataset.category)));
+}
+function renderFilters(){
+  const names=["All",...categories.map(c=>c.name)];
+  $("#filters").innerHTML=names.map(n=>`<button class="filter-chip ${activeCategory===n?"active":""}" data-filter="${n}">${n}</button>`).join("");
+  $("#filters").querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>setCategory(b.dataset.filter)));
+}
+function setCategory(name){activeCategory=name;$("#productsHeading").textContent=name==="All"?"Popular picks":name;renderFilters();renderProducts();$("#products").scrollIntoView({behavior:"smooth"});}
+function productCard(p){
+  return `<article class="product-card"><div class="product-image-wrap"><img class="product-image" loading="lazy" src="${p.image}" alt="${p.name}" onerror="this.style.opacity='.25'"><span class="sample-tag">SAMPLE PRICE</span></div><div class="product-info"><div class="product-category">${p.category}</div><h3 class="product-name">${p.name}</h3><div class="product-price">${money(p.price)}<small>${SAMPLE_LABEL}</small></div><div class="product-actions"><button class="add-button" data-add="${p.id}">Add to bag</button><button class="enquire-button" data-enquire="${p.id}">WhatsApp enquiry</button></div></div></article>`;
 }
 function renderProducts(){
-  const list = visibleProducts();
-  productGrid.innerHTML = list.map(p => `<article class="product-card">
-    <div class="product-image-wrap"><img class="product-image" src="${p.image}" alt="${safeText(p.name)}" loading="lazy"><span class="product-badge">${safeText(p.badge)}</span>
-      <button class="wishlist-button ${state.wishlist.has(p.id)?"saved":""}" data-wishlist="${p.id}" aria-label="${state.wishlist.has(p.id)?"Remove from":"Add to"} wishlist" aria-pressed="${state.wishlist.has(p.id)}">${state.wishlist.has(p.id)?"♥":"♡"}</button></div>
-    <div class="product-info"><div class="product-meta"><div><h3 class="product-name">${safeText(p.name)}</h3><span class="product-category">${categoryName(p.category)}</span></div><span class="product-price">${money(p.price)}</span></div>
-      <p class="product-colour">${safeText(p.colour)}</p><button class="product-quick-add" data-product="${p.id}">Choose size <span>＋</span></button></div></article>`).join("");
-  $("#emptyState").hidden = list.length !== 0;
-  $("#count-all").textContent = products.length;
+  const list=activeCategory==="All"?products:products.filter(p=>p.category===activeCategory);
+  $("#productGrid").innerHTML=list.map(productCard).join("");
+  $("#productGrid").querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>addToCart(Number(b.dataset.add))));
+  $("#productGrid").querySelectorAll("[data-enquire]").forEach(b=>b.addEventListener("click",()=>{const p=products.find(x=>x.id===Number(b.dataset.enquire));openWhatsApp(`Namaste FORME! I am enquiring about:\nProduct: ${p.name}\nCategory: ${p.category}\nSample price shown: ${money(p.price)} (please confirm actual price and availability)\nPlease share available sizes, colours and final price.`);}));
 }
-function showToast(message){const toast=$("#toast");toast.textContent=message;toast.classList.add("visible");clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>toast.classList.remove("visible"),2300);}
-function openProduct(id){const p=products.find(item=>item.id===id);if(!p)return;state.selectedProduct=p;state.selectedSize="";state.quantity=1;$("#modalImage").src=p.image;$("#modalImage").alt=p.name;$("#modalTitle").textContent=p.name;$("#modalCategory").textContent=categoryName(p.category).toUpperCase()+" · THE FORME EDIT";$("#modalPrice").textContent=money(p.price);$("#modalDescription").textContent=p.description;$("#modalQty").textContent="1";$("#sizeError").hidden=true;$("#sizeOptions").innerHTML=p.sizes.map(size=>`<button type="button" class="size-option" data-size="${size}" aria-pressed="false">${size}</button>`).join("");$("#productModal").hidden=false;document.body.classList.add("no-scroll");setTimeout(()=>$("#modalClose").focus(),30);}
-function closeProduct(){ $("#productModal").hidden=true;document.body.classList.remove("no-scroll");state.selectedProduct=null; }
-function updateCartUI(){const count=state.cart.reduce((sum,item)=>sum+item.qty,0);$("#bagCount").textContent=count;$("#drawerCount").textContent=`(${count})`;$("#cartItems").innerHTML=state.cart.map(item=>{const p=products.find(x=>x.id===item.id);return `<div class="cart-item"><img src="${p.image}" alt="${safeText(p.name)}"><div><h3>${safeText(p.name)}</h3><p>Size: ${safeText(item.size)} · ${money(p.price)} each</p><div class="cart-item-controls"><button data-qty="minus" data-id="${p.id}" data-size="${safeText(item.size)}" aria-label="Decrease quantity">−</button><span>${item.qty}</span><button data-qty="plus" data-id="${p.id}" data-size="${safeText(item.size)}" aria-label="Increase quantity">+</button><button class="remove-item" data-remove="${p.id}" data-size="${safeText(item.size)}">Remove</button></div></div><strong class="cart-item-price">${money(p.price*item.qty)}</strong></div>`}).join("");const empty=state.cart.length===0;$("#cartEmpty").hidden=!empty;$("#cartSummary").hidden=empty;$("#cartSubtotal").textContent=money(state.cart.reduce((sum,item)=>sum+products.find(p=>p.id===item.id).price*item.qty,0));}
-function addToCart(){if(!state.selectedSize){$("#sizeError").hidden=false;return;}const p=state.selectedProduct;const found=state.cart.find(item=>item.id===p.id&&item.size===state.selectedSize);if(found)found.qty+=state.quantity;else state.cart.push({id:p.id,size:state.selectedSize,qty:state.quantity});updateCartUI();closeProduct();showToast(`${p.name} added to your bag`);}
-function openCart(){closeProductIfOpen();$("#overlay").hidden=false;requestAnimationFrame(()=>$("#overlay").classList.add("show"));$("#cartDrawer").classList.add("open");$("#cartDrawer").setAttribute("aria-hidden","false");document.body.classList.add("no-scroll");updateCartUI();$("#cartClose").focus();}
-function closeCart(){ $("#cartDrawer").classList.remove("open");$("#cartDrawer").setAttribute("aria-hidden","true");$("#overlay").classList.remove("show");setTimeout(()=>{if(!$("#cartDrawer").classList.contains("open"))$("#overlay").hidden=true;},260);if($("#productModal").hidden)document.body.classList.remove("no-scroll");}
-function closeProductIfOpen(){if(!$("#productModal").hidden)closeProduct();}
-function whatsappUrl(message){return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;}
-function setWhatsappLinks(){const message="Hi FORME, I'd like to know more about your menswear collection in Jabalpur.";$("#visitWhatsapp").href=whatsappUrl(message);$("#footerWhatsapp").href=whatsappUrl(message);}
-function checkoutOnWhatsApp(){if(state.cart.length===0)return;const lines=state.cart.map(item=>{const p=products.find(x=>x.id===item.id);return `• ${p.name} | Size ${item.size} | Qty ${item.qty} | ${money(p.price*item.qty)}`});const total=state.cart.reduce((sum,item)=>sum+products.find(p=>p.id===item.id).price*item.qty,0);const message=`Hi FORME! I'd like to place an order:\n\n${lines.join("\n")}\n\nSubtotal: ${money(total)}\n\nPlease confirm availability, delivery/pickup options and payment details. Thank you!`;window.open(whatsappUrl(message),"_blank","noopener,noreferrer");}
-
-productGrid.addEventListener("click",event=>{const wish=event.target.closest("[data-wishlist]");const product=event.target.closest("[data-product]");if(wish){const id=Number(wish.dataset.wishlist);if(state.wishlist.has(id))state.wishlist.delete(id);else state.wishlist.add(id);renderProducts();showToast(state.wishlist.has(id)?"Saved to your wishlist":"Removed from your wishlist");}else if(product)openProduct(Number(product.dataset.product));});
-$$(".filter-tab").forEach(button=>button.addEventListener("click",()=>{$$(".filter-tab").forEach(b=>b.classList.toggle("active",b===button));state.filter=button.dataset.filter;renderProducts();}));
-$$("[data-category-link]").forEach(link=>link.addEventListener("click",()=>{const category=link.dataset.categoryLink;state.filter=category;$$(".filter-tab").forEach(b=>b.classList.toggle("active",b.dataset.filter===category));renderProducts();}));
-$("#sortSelect").addEventListener("change",event=>{state.sort=event.target.value;renderProducts();});
-$("#searchToggle").addEventListener("click",()=>{const panel=$("#searchPanel");panel.hidden=!panel.hidden;if(!panel.hidden){$("#searchInput").focus();$("#mobileNav").classList.remove("open");}});
-$("#searchClose").addEventListener("click",()=>{ $("#searchPanel").hidden=true;$("#searchInput").value="";state.query="";renderProducts();});
-$("#searchInput").addEventListener("input",event=>{state.query=event.target.value;renderProducts();if(state.query)document.querySelector("#shop").scrollIntoView({behavior:"smooth",block:"start"});});
-$("#menuToggle").addEventListener("click",()=>{const nav=$("#mobileNav");const open=!nav.classList.contains("open");nav.classList.toggle("open",open);$("#menuToggle").setAttribute("aria-expanded",String(open));});
-$$("#mobileNav a").forEach(link=>link.addEventListener("click",()=>{ $("#mobileNav").classList.remove("open");$("#menuToggle").setAttribute("aria-expanded","false");}));
-$("#cartOpen").addEventListener("click",openCart);$("#cartClose").addEventListener("click",closeCart);$("#overlay").addEventListener("click",closeCart);$("#continueShopping").addEventListener("click",()=>{closeCart();$("#shop").scrollIntoView({behavior:"smooth"});});$("#continueShopping2").addEventListener("click",closeCart);$("#checkoutButton").addEventListener("click",checkoutOnWhatsApp);
-$("#modalClose").addEventListener("click",closeProduct);$("#modalAdd").addEventListener("click",addToCart);$("#sizeOptions").addEventListener("click",event=>{const button=event.target.closest("[data-size]");if(!button)return;state.selectedSize=button.dataset.size;$$(".size-option").forEach(b=>{b.classList.toggle("selected",b===button);b.setAttribute("aria-pressed",String(b===button));});$("#sizeError").hidden=true;});
-$("#qtyMinus").addEventListener("click",()=>{state.quantity=Math.max(1,state.quantity-1);$("#modalQty").textContent=state.quantity;});$("#qtyPlus").addEventListener("click",()=>{state.quantity=Math.min(10,state.quantity+1);$("#modalQty").textContent=state.quantity;});
-$("#cartItems").addEventListener("click",event=>{const plus=event.target.closest("[data-qty]");const remove=event.target.closest("[data-remove]");if(plus){const item=state.cart.find(i=>i.id===Number(plus.dataset.id)&&i.size===plus.dataset.size);if(!item)return;if(plus.dataset.qty==="plus")item.qty=Math.min(10,item.qty+1);else item.qty-=1;if(item.qty<=0)state.cart=state.cart.filter(i=>i!==item);updateCartUI();}if(remove){state.cart=state.cart.filter(i=>!(i.id===Number(remove.dataset.remove)&&i.size===remove.dataset.size));updateCartUI();}});
-document.addEventListener("keydown",event=>{if(event.key==="Escape"){if(!$("#productModal").hidden)closeProduct();else if($("#cartDrawer").classList.contains("open"))closeCart();$("#searchPanel").hidden=true;$("#mobileNav").classList.remove("open");}});
-$("#year").textContent=new Date().getFullYear();setWhatsappLinks();renderProducts();updateCartUI();
+function addToCart(id){const p=products.find(x=>x.id===id);const existing=cart.find(x=>x.id===id);if(existing)existing.qty++;else cart.push({...p,qty:1});updateCart();showToast("Added to your bag");}
+function updateCart(){
+  $("#cartCount").textContent=cart.reduce((n,p)=>n+p.qty,0);
+  $("#cartTotal").textContent=money(cart.reduce((n,p)=>n+p.price*p.qty,0));
+  $("#cartItems").innerHTML=cart.length?cart.map(p=>`<div class="cart-line"><img src="${p.image}" alt=""><div class="cart-line-info"><strong>${p.name}</strong><small>${p.category} · Sample ${money(p.price)} × ${p.qty}</small><button class="remove-item" data-remove="${p.id}">Remove</button></div></div>`).join(""):'<p>Your bag is empty. Add a product to enquire about it.</p>';
+  $("#cartItems").querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>{cart=cart.filter(p=>p.id!==Number(b.dataset.remove));updateCart();}));
+}
+function openCart(){ $("#cartDrawer").classList.add("open");$("#cartDrawer").setAttribute("aria-hidden","false"); }
+function closeCart(){ $("#cartDrawer").classList.remove("open");$("#cartDrawer").setAttribute("aria-hidden","true"); }
+function checkout(){
+  if(!cart.length){showToast("Your bag is empty");return;}
+  const lines=cart.map(p=>`• ${p.name} (${p.category}) × ${p.qty} — sample ${money(p.price)}`).join("\n");
+  openWhatsApp(`Namaste FORME! I would like to enquire about these items:\n\n${lines}\n\nSample subtotal: ${money(cart.reduce((n,p)=>n+p.price*p.qty,0))}\n\nPlease confirm actual prices, sizes, colours, availability, delivery charges and payment options. I understand this is an enquiry, not a confirmed order.`);
+}
+function init(){
+  renderCategories();renderFilters();renderProducts();updateCart();
+  $("#year").textContent=new Date().getFullYear();
+  const hello="Namaste FORME! Please share your current collection, prices and available sizes.";
+  $("#visitWhatsapp").href=waUrl(hello);$("#footerWhatsapp").href=waUrl(hello);
+  $("#cartButton").addEventListener("click",openCart);$("#closeCart").addEventListener("click",closeCart);$("#drawerBackdrop").addEventListener("click",closeCart);$("#checkoutButton").addEventListener("click",checkout);
+  $("#menuToggle").addEventListener("click",()=>{const nav=$("#mainNav");const open=nav.classList.toggle("open");$("#menuToggle").setAttribute("aria-expanded",String(open));});
+  $("#mainNav").querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>$("#mainNav").classList.remove("open")));
+}
+document.addEventListener("DOMContentLoaded",init);
