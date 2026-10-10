@@ -7,6 +7,9 @@
   <meta name="description" content="FORME Menswear — everyday fashion at honest prices. Browse shirts, T-shirts, jeans, lowers, hoodies, uppers, track suits, jackets, caps and mufflers.">
   <title>FORME Menswear | Everyday Style, Right Price</title>
   <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -39,15 +42,15 @@
 
     <section class="section products-section" id="products">
       <div class="section-heading"><div><p class="eyebrow">THE EVERYDAY EDIT</p><h2 id="productsHeading">Popular picks</h2></div><p class="sample-note">Sample prices only · Confirm availability with store</p></div>
-      <div class="filters" id="filters" aria-label="Filter products"></div>
+      <div class="filters" id="filters" role="group" aria-label="Filter products"></div>
       <div class="product-grid" id="productGrid"></div>
     </section>
 
-    <section class="promise-strip">
+    <div class="promise-strip">
       <div><span class="promise-icon">₹</span><p><strong>Honest pricing</strong><small>Confirm final price before ordering</small></p></div>
       <div><span class="promise-icon">☏</span><p><strong>Easy WhatsApp enquiry</strong><small>Ask about sizes and availability</small></p></div>
       <div><span class="promise-icon">⌖</span><p><strong>Local store</strong><small>Jabalpur, Madhya Pradesh</small></p></div>
-    </section>
+    </div>
 
     <section class="visit-section" id="visit">
       <div><p class="eyebrow">COME SAY HELLO</p><h2>Good style starts here.</h2><p>Looking for a size, colour or current price? Message us before visiting so we can help you check availability.</p></div>
@@ -64,11 +67,11 @@
 
   <div class="cart-drawer" id="cartDrawer" aria-hidden="true">
     <div class="drawer-backdrop" id="drawerBackdrop"></div>
-    <section class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
-      <div class="drawer-heading"><h2 id="cartTitle">Your bag</h2><button id="closeCart" aria-label="Close bag">×</button></div>
+    <section class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle" tabindex="-1">
+      <div class="drawer-heading"><h2 id="cartTitle">Your bag</h2><button id="closeCart" type="button" aria-label="Close bag">×</button></div>
       <p class="sample-note">Items and prices are for enquiry only. Final price and availability must be confirmed by the store.</p>
       <div id="cartItems" class="cart-items"></div>
-      <div class="drawer-footer"><div class="cart-total"><span>Sample subtotal</span><strong id="cartTotal">₹0</strong></div><button class="button button-primary full-width" id="checkoutButton">Enquire on WhatsApp</button><small>Sending an enquiry does not confirm an order.</small></div>
+      <div class="drawer-footer"><div class="cart-total"><span>Sample subtotal</span><strong id="cartTotal">₹0</strong></div><button type="button" class="button button-primary full-width" id="checkoutButton">Enquire on WhatsApp</button><small>Sending an enquiry does not confirm an order.</small></div>
     </section>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
